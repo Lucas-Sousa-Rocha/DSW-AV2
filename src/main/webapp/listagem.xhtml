@@ -1,0 +1,66 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<title>Cadastro de Jogo</title>
+</h:head>
+
+<h:body>
+	<h:form id="formListagem">
+	
+	<!-- Botão para contar jogos -->
+		
+
+		<!-- Mensagem de contagem de jogos -->
+		<p:messages id="messages" showDetail="true" closable="true">
+			<p:autoUpdate />
+		</p:messages>
+	
+	<p:link outcome="index" value="voltar"/>
+    <p:dataTable id="dataTable" value="#{jogoBean.jogos}" var="jogo" 
+                 emptyMessage="Nenhum jogo encontrado">
+        <p:column headerText="ID">
+            <h:outputText value="#{jogo.id}" />
+        </p:column>
+        
+        <p:column headerText="Nome do Jogador">
+            <h:outputText value="#{jogo.nomeJogador}" />
+        </p:column>
+        
+        <p:column headerText="Número Aposta">
+            <h:outputText value="#{jogo.numeroAposta}" />
+        </p:column>
+        
+        <p:column headerText="Número Secreto">
+            <h:outputText value="#{jogo.numeroSecreto}" />
+        </p:column>
+        
+        <p:column headerText="Resultado">
+            <h:outputText value="#{jogo.resultado}" />
+        </p:column>
+        
+        <p:column headerText="Data">
+            <h:outputText value="#{jogo.data}">
+                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+            </h:outputText>
+        </p:column>
+        
+        <!-- Coluna para o botão de exclusão -->
+        <p:column headerText="Ações">
+            <p:commandButton value="Excluir" action="#{jogoBean.excluirJogo(jogo)}" 
+                             update="dataTable" process="@this"
+                             icon="pi pi-trash" styleClass="ui-button-danger" 
+                             onclick="return confirm('Deseja realmente excluir este jogo?');" />
+        </p:column>
+    </p:dataTable>
+    <br/>
+    <p:commandButton value="Contar Jogos" action="#{jogoBean.contarJogos}"
+			update="messages" />
+</h:form>
+
+
+
+</h:body>
+</html>
